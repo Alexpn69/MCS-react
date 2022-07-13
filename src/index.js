@@ -1,19 +1,20 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React, { useState, useRef } from "react";
+import { render } from "react-dom";
+import "./index.css";
+import useMapbox from "./useMapbox";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-    <p>gggg</p>
-    <p>jjj</p>
-  </React.StrictMode>
-);
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals();
+function App() {
+  const [random, setRandom] = useState(Math.random());
+  const containerRef = useRef();
+  // [30.3141, 59.9386]
+  useMapbox(containerRef, "");
+  return (
+    <>
+      <button id="rerender" onClick={() => setRandom(Math.random())}>
+        Ререндер!
+      </button>
+      <div className="divs" ref={containerRef}></div>
+    </>
+  );
+}
+render(<App />, document.querySelector("#root"));
